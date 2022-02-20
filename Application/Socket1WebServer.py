@@ -26,7 +26,7 @@ while True:
         #Send response message for file not found
         outputdata = 'HTTP/1.1 404 Not Found\r\n\r\n'
         #Close client socket
-        for i int range(0, len(outputdata)):
+        for i in range(0, len(outputdata)):
             connectionSocket.send(outputdata[i].encode())
         connectionSocket.close()
 serverSocket.close()
