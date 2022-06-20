@@ -57,7 +57,9 @@ while 1:
 				print("askFile:", askFile)
 				# Create a temporary file on this socket and ask port 80
 				# for the file requested by the client
-				c.send("GET ".encode() + askFile.encode() + " HTTP/1.0\r\nHost: ".encode() + serverName.encode() + "\r\n\r\n".encode())
+				reH = "GET " + askFile + " HTTP/1.0\r\nHost: " + serverName + "\r\n\r\n"
+				print("reH:",reH)
+				c.send(reH.encode())
 				serverResponse = c.recv(1024)
 				tmpFile = open(filename, "wb")
 				print(serverResponse)
