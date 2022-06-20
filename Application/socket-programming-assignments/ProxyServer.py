@@ -19,7 +19,7 @@ while 1:
 	print('Received a connection from:', addr)
 	message = tcpCliSock.recv(1024)
 	message = message.decode()
-	print("message:", message)
+	print("message:\n", message)
 	if(message == ''):
 		continue
 	# Extract the filename from the given message
@@ -49,7 +49,7 @@ while 1:
 			print("hostn:", hostn)
 			try:
 				# Connect to the socket to port 80
-				serverName = hostn.partition("/")[0]
+				serverName = filename.partition("/")[0]
 				serverPort = 80
 				print((serverName, serverPort))
 				c.connect((serverName, serverPort))
