@@ -1,4 +1,4 @@
- #改为Python3格式
+#改为Python3格式
 from socket import *
 import sys
 import os
@@ -19,7 +19,7 @@ while 1:
 	print('Received a connection from:', addr)
 	message = tcpCliSock.recv(1024)
 	message = message.decode()
-	print("message:\n", message)
+	print("message:", message)
 	if(message == ''):
 		continue
 	# Extract the filename from the given message
@@ -49,7 +49,7 @@ while 1:
 			print("hostn:", hostn)
 			try:
 				# Connect to the socket to port 80
-				serverName = filename.partition("/")[0]
+				serverName = hostn.partition("/")[0]
 				serverPort = 80
 				print((serverName, serverPort))
 				c.connect((serverName, serverPort))
@@ -57,24 +57,26 @@ while 1:
 				print("askFile:", askFile)
 				# Create a temporary file on this socket and ask port 80
 				# for the file requested by the client
-				reH = "GET " + askFile + " HTTP/1.1\r\nHost: " + serverName + "\r\n\r\n"
-				print("reH:", reH)
-				c.send(reH.encode())
-				print("ok")
-				serverResponse = c.recv(1024)
-				print(serverResponse.decode())
-				tmpFile = open('WEB/' + filename, "wb")
-				print("ok1")
+				fileobj = c.makefile('rwb', 0)
+				fileobj.write("GET ".encode() + askFile.encode() + " HTTP/1.0\r\nHost: ".encode() + serverName.encode() + "\r\n\r\n".encode())
+				# Read the response into buffer
+				serverResponse = fileobj.read()
+				# Create a new file in the cache for the requested file.
+				# Also send the response in the buffer to client socket and the corresponding file in the cache
+				filename = "WEB/" + filename
+				filesplit = filename.split('/')
+				for i in range(0, len(filesplit) - 1):
+					if not os.path.exists("/".join(filesplit[0:i+1])):
+						os.makedirs("/".join(filesplit[0:i+1]))
+				tmpFile = open(filename, "wb")
+				print(serverResponse)
+				serverResponse = serverResponse.split(b'\r\n\r\n')[1]
+				print(serverResponse)
 				tmpFile.write(serverResponse)
-				print("ok2")
 				tmpFile.close()
-				print("ok3")
 				tcpCliSock.send("HTTP/1.1 200 OK\r\n".encode())
-				print("ok4")
 				tcpCliSock.send("Content-Type:text/html\r\n\r\n".encode())
-				print("ok5")
 				tcpCliSock.send(serverResponse)
-				print("ok6")
 			except:
 				print("Illegal request")
 			c.close()
