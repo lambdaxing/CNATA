@@ -57,14 +57,13 @@ while 1:
 				print("askFile:", askFile)
 				# Create a temporary file on this socket and ask port 80
 				# for the file requested by the client
-				reH = "GET " + askFile + " HTTP/1.0\r\nHost: " + serverName + "\r\n\r\n"
-				print("reH:",reH)
+				reH = "GET " + askFile + " HTTP/1.1\r\nHost: " + serverName + "\r\n\r\n"
+				print("reH:", reH)
 				c.send(reH.encode())
+				print("ok")
 				serverResponse = c.recv(1024)
+				print(serverResponse)
 				tmpFile = open(filename, "wb")
-				print(serverResponse)
-				serverResponse = serverResponse.split(b'\r\n\r\n')[1]
-				print(serverResponse)
 				tmpFile.write(serverResponse)
 				tmpFile.close()
 				tcpCliSock.send("HTTP/1.1 200 OK\r\n".encode())
