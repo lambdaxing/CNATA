@@ -62,7 +62,7 @@ while 1:
 				c.send(reH.encode())
 				print("ok")
 				serverResponse = c.recv(1024)
-				print(serverResponse)
+				print(serverResponse.decode())
 				tmpFile = open(filename, "wb")
 				tmpFile.write(serverResponse)
 				tmpFile.close()
