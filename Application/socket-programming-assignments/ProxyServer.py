@@ -24,7 +24,7 @@ while 1:
 		continue
 	# Extract the filename from the given message
 	print("message.split()[1]:", message.split()[1])
-	filename = message.split()[1].partition("/")[2]
+	filename = message.split()[1].partition("//")[2]
 	print("filename:", filename)
 	fileExist = "false"
 	filetouse = "/" + filename
