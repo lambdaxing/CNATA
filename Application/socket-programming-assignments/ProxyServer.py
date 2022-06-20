@@ -57,17 +57,8 @@ while 1:
 				print("askFile:", askFile)
 				# Create a temporary file on this socket and ask port 80
 				# for the file requested by the client
-				fileobj = c.makefile('rwb', 0)
-				fileobj.write("GET ".encode() + askFile.encode() + " HTTP/1.0\r\nHost: ".encode() + serverName.encode() + "\r\n\r\n".encode())
-				# Read the response into buffer
-				serverResponse = fileobj.read()
-				# Create a new file in the cache for the requested file.
-				# Also send the response in the buffer to client socket and the corresponding file in the cache
-				filename = "WEB/" + filename
-				filesplit = filename.split('/')
-				for i in range(0, len(filesplit) - 1):
-					if not os.path.exists("/".join(filesplit[0:i+1])):
-						os.makedirs("/".join(filesplit[0:i+1]))
+				c.send("GET ".encode() + askFile.encode() + " HTTP/1.0\r\nHost: ".encode() + serverName.encode() + "\r\n\r\n".encode())
+				serverResponse = c.recv(1024)
 				tmpFile = open(filename, "wb")
 				print(serverResponse)
 				serverResponse = serverResponse.split(b'\r\n\r\n')[1]
