@@ -1,4 +1,3 @@
-#改为Python3格式
 from socket import *
 import sys
 import os
