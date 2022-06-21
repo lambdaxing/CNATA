@@ -67,7 +67,7 @@ while 1:
                 # Read the response into buffer
                 serverResponse = fileobj.read()
                 print(serverResponse)
-                print("serverResponse.split()[0]:", serverResponse.split()[0])
+                print("serverResponse.split()[1]:", serverResponse.split()[1])
                 if serverResponse.split()[1] == b'404':
                     print('404')
                     tcpCliSock.send("HTTP/1.1 404 Not Found\r\n\r\n".encode())
