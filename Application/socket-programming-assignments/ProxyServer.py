@@ -73,6 +73,7 @@ while 1:
 				print(serverResponse)
 				tmpFile.write(serverResponse)
 				tmpFile.close()
+				print("write to cache")
 				tcpCliSock.send("HTTP/1.1 200 OK\r\n".encode())
 				tcpCliSock.send("Content-Type:text/html\r\n\r\n".encode())
 				tcpCliSock.send(serverResponse)
@@ -83,5 +84,6 @@ while 1:
 			# HTTP response message for file not found
 			print("NET ERROR")
 	# Close the client and the server sockets
+	print("proxy send success")
 	tcpCliSock.close()
 tcpSerSock.close()
