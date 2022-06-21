@@ -66,6 +66,7 @@ while 1:
                     fileobj.write(message.split("\r\n\r\n")[1].encode())
                 # Read the response into buffer
                 serverResponse = fileobj.read()
+                print(serverResponse)
                 print("serverResponse.split()[0]:", serverResponse.split()[0])
                 if serverResponse.split()[0] != b'404':
                     print('404')
@@ -80,7 +81,6 @@ while 1:
                     if not os.path.exists("/".join(filesplit[0:i+1])):
                         os.makedirs("/".join(filesplit[0:i+1]))
                 tmpFile = open(filename, "wb")
-                print(serverResponse)
                 serverResponse = serverResponse.split(b'\r\n\r\n')[1]
                 print(serverResponse)
                 tmpFile.write(serverResponse)
