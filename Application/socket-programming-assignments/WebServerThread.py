@@ -14,7 +14,7 @@ def st():
         outputdata = f.read()
         f.close()
         #Send one HTTP header line into socket
-        outputdata = 'HTTP/1.1 200 Ok\r\nConnection: close\r\n\r\n' + outputdata
+        outputdata = 'HTTP/1.1 200 Ok\r\n\r\n' + outputdata
         #Send the content of the requested file to client
         for i in range(0, len(outputdata)):
             connectionSocket.send(outputdata[i].encode())
@@ -22,7 +22,7 @@ def st():
         print("OK!")
     except IOError:
         #Send response message for file not found
-        connectionSocket.send('HTTP/1.1 404 Not Found\r\nConnection: close\r\n\r\n'.encode())
+        connectionSocket.send('HTTP/1.1 404 Not Found\r\n\r\n'.encode())
         #Close client socket
         connectionSocket.close()
 
