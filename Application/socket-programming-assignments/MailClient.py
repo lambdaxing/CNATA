@@ -1,6 +1,3 @@
-from email.headerregistry import MessageIDHeader
-from http import client
-from pydoc import cli
 from socket import *
 
 msg = "\r\n I love computer networks!"
