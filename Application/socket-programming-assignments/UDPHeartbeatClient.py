@@ -1,7 +1,7 @@
 from socket import *
 import time
 
-serverName = 'localhost'
+serverName = '112.74.41.43'
 serverPort = 12000
 number = 1
 clientSocket = socket(AF_INET, SOCK_DGRAM)
