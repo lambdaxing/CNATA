@@ -8,3 +8,6 @@ clientSocket.send(sentence.encode())
 modifiedSentence = clientSocket.recv(1024)
 print('From Server: ', modifiedSentence.decode())
 clientSocket.close()
+
+from socket import *
+serverName = '112.74.41.43'
