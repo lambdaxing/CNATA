@@ -24,5 +24,6 @@ for i in range(10):
     finally:
         clientSocket.settimeout(None)
 clientSocket.close()
-print("10 packets transmitted, %s packets received, %.1f%% packet loss" % (num, (num/10)*100))
-print("round-trip min/avg/max = %.3f/%.3f/%.3f ms" % (minRtt, sumRtt/num, maxRtt))
+if num != 0:
+    print("10 packets transmitted, %s packets received, %.1f%% packet loss" % (num, (num/10)*100))
+    print("round-trip min/avg/max = %.3f/%.3f/%.3f ms" % (minRtt,sumRtt/num, maxRtt))
